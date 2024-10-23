@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="../Css/Registro.css">
+    <link rel="stylesheet" th:href="@{/css/Registro.css}">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <nav class="raleway-bold menu-principal">
         <a href="../Html/Inicio.html" class="logo-container">
-            <img class="logo" src="../img/logo.jpg" alt="Logo">
+            <img class="logo" th:src="@{/images/logo.jpg}" alt="Logo">
             <span class="logo-text">JabBurguer</span>
         </a>
         <ul class="nav-links">
