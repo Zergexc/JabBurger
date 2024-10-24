@@ -5,37 +5,35 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-
-import com.jab.burger.jabburger.services.UserService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private UserService userService;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/inicio", "/registro", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/", "/Inicio", "/Registro", "/login", "/css/**", "/images/**", "/js/**").permitAll()
+                .requestMatchers("/perfil", "/perfil/**").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
                 .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/inicio", true)
-                .failureUrl("/login-error")
+                .defaultSuccessUrl("/Inicio", true)
                 .permitAll()
             )
             .logout((logout) -> logout
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-            )
-            .userDetailsService(userService);
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/Inicio")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll())
+            .sessionManagement(session -> session
+                .sessionFixation().migrateSession()
+                .maximumSessions(1)
+                .expiredUrl("/login?expired"));
 
         return http.build();
     }

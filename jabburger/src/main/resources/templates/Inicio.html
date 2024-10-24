@@ -22,10 +22,9 @@
             <li><a th:href="@{/acercadenosotros}">Acerca de nosotros</a></li>
         </ul>
         <div class="menu-derecha">
-            <a th:href="${session.user != null} ? @{/user-panel} : @{/login}" class="icono-menu">
-                <img th:src="@{/img/icono-usuario.png}" alt="Icono Usuario">
+            <a th:href="@{/perfil}" title="Perfil de Usuario" class="icono-menu">
+                <i class="fas fa-user"></i>
             </a>
-            <a th:href="@{/login}" title="Iniciar sesión"><i class="fas fa-user"></i></a>
             <a href="#" title="Carrito" class="cart-icon">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count">0</span>
